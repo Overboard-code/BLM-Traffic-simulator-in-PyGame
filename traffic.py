@@ -155,18 +155,18 @@ def moveEast():
         moved += int(movers.sum())
     return moved
 
-def moveNorth():
-    """Flop: every blue car moves up one cell if that cell is empty.
-    Rows are checked top to bottom, so a space cleared by a car moving off
-    can be used by the car below it in the same flop."""
+def moveSouth():
+    """Flop: every blue car moves down one cell if that cell is empty.
+    Rows are checked bottom to top, so a space cleared by a car moving off
+    can be used by the car above it in the same flop."""
     moved = 0
     wrapped = None
-    for y in range(thehigh):
-        nxt = (y - 1) % thehigh
+    for y in range(thehigh - 1, -1, -1):
+        nxt = (y + 1) % thehigh
         movers = (board[:, y] == NORTH_CAR) & (board[:, nxt] == EMPTY)
-        if y == thehigh - 1:
-            movers &= ~wrapped
         if y == 0:
+            movers &= ~wrapped      # a car that just wrapped to the top already had its turn
+        if y == thehigh - 1:
             wrapped = movers.copy()
         board[movers, nxt] = NORTH_CAR
         board[movers, y] = EMPTY
@@ -179,7 +179,7 @@ def takeStep():
     if eastsTurn:
         moved = moveEast()
     else:
-        moved = moveNorth()
+        moved = moveSouth()
     eastsTurn = not eastsTurn
     idleSteps = 0 if moved else idleSteps + 1
     if idleSteps >= 2:      # neither color could move: total gridlock
