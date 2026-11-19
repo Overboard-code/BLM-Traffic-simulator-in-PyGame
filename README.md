@@ -18,3 +18,4 @@ A Pygame version of the 1992 Biham, Middleton & Levine traffic model (BML Traffi
 
   Andy Richter  Original code Nov, 2026
   Free to use change or whatever
+<img width="700" height="732" alt="Traffic_shot" src="https://github.com/user-attachments/assets/8262e3e0-dda4-4fba-9298-33c04b9a1f10" />
